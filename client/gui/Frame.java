@@ -40,7 +40,6 @@ public class Frame extends JFrame {
     public Frame() {
         initFrame();
         hookActionListeners();
-        setButtons();
         setMenu();
         setPageStart();
         setPageEnd();
@@ -143,7 +142,7 @@ public class Frame extends JFrame {
 
         frameHeader.setFont(font);
         frameHeader.setForeground(Color.WHITE);
-        panel.setBackground(Color.BLUE);
+        panel.setBackground(Color.BLACK);
         panel.add(frameHeader);
 
         add(panel, BorderLayout.PAGE_START);
@@ -318,6 +317,7 @@ public class Frame extends JFrame {
         status.setText("<html><font size=\"2\" color=\"green\">Jó: " + correct + "                      "
                 + "</font><font size=\"2\" color=\"red\">Rossz: " + wrong + "</font></html>");
         buttonColor();
+        setButtons();
         revalidate();
         repaint();
         System.out.println("Kérdés: ");
@@ -327,8 +327,8 @@ public class Frame extends JFrame {
     //gombok színe
     private void buttonColor(){
         for(Button b : buttons){
-            b.setBackground(Color.YELLOW);
-            b.setForeground(Color.BLACK);
+            b.setBackground(Color.BLACK);
+            b.setForeground(Color.WHITE);
         }
     }
 }
