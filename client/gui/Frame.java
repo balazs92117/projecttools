@@ -7,7 +7,8 @@ import java.util.*;
 import java.util.logging.*;
 import javax.swing.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
-//import client.gui.logic;
+import javax.swing.border.BevelBorder;
+
         
 //Az ablak megvalósítása, származtatás JFrame osztályból
 public class Frame extends JFrame{
@@ -32,6 +33,8 @@ public class Frame extends JFrame{
     
     private JLabel question=new JLabel();
     
+    private final JLabel status = new JLabel("QUIZ");
+    
     private ArrayList<Button> buttons = new ArrayList<>();
     private ArrayList<String> anwsers = new ArrayList<>();
     
@@ -40,6 +43,8 @@ public class Frame extends JFrame{
         hookActionListeners();
         setButtons();
         setMenu();
+        setPageStart();
+        setPageEnd();
         try {
             logic = new QuizGameLogic(this);
         } catch (Exception ex) {
@@ -79,12 +84,37 @@ public class Frame extends JFrame{
     //Ablak tulajdonságainak beállítása
     private void initFrame() {
         setTitle("QUIZ");
-        setSize(new Dimension(850, 850));
+        setSize(new Dimension(850, 650));
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
+    
+    private void setPageStart() {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JLabel frameHeader = new JLabel("Quiz");
+        Font font = new Font(Font.SERIF, Font.BOLD, 26);
+
+        frameHeader.setFont(font);
+        frameHeader.setForeground(Color.WHITE);
+        panel.setBackground(Color.BLUE);
+        panel.add(frameHeader);
+
+        add(panel, BorderLayout.PAGE_START);
+    }
+
+    private void setPageEnd() {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        status.setHorizontalAlignment(SwingConstants.LEFT);
+        panel.setBorder(new BevelBorder(BevelBorder.LOWERED));
+        panel.setPreferredSize(new Dimension(getWidth(), 16));
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+
+        panel.add(status);
+        add(panel, BorderLayout.SOUTH);
+    }
+    
    //Vége van-e a játéknak
     public boolean isGameEnd(boolean i){
         return false;
@@ -118,7 +148,7 @@ public class Frame extends JFrame{
                 System.out.println("Click A!");
                 selected = 0;
                 try {
-                    result(logic.correctAnswer(0));
+                    result(logic.iscorrectAnswer(0));
                 }catch(IOException ex) {
                     Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -131,7 +161,7 @@ public class Frame extends JFrame{
                 System.out.println("Click B!");
                 selected = 1;
                 try {
-                    result(logic.correctAnswer(0));
+                    result(logic.iscorrectAnswer(0));
                 }catch(IOException ex) {
                     Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -144,7 +174,7 @@ public class Frame extends JFrame{
                 System.out.println("Click C!");
                 selected = 2;
                 try {
-                    result(logic.correctAnswer(0));
+                    result(logic.iscorrectAnswer(0));
                 }catch(IOException ex) {
                     Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -157,7 +187,7 @@ public class Frame extends JFrame{
                 System.out.println("Click D!");
                 selected = 3;
                 try {
-                    result(logic.correctAnswer(0));
+                    result(logic.iscorrectAnswer(0));
                 }catch(IOException ex) {
                     Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
                 }
