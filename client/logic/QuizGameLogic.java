@@ -8,9 +8,6 @@ public class QuizGameLogic {
 	private int correctIndex;
 	private Frame gui;
 	
-	private Socket socket;
-	private PrintWriter pw;
-	private Scanner sc;
 	
 	public QuizGameLogic(Frame gui) {
 		this.gui = gui;
