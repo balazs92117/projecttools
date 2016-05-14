@@ -41,6 +41,6 @@ public class QuizGameLogic {
 	}
 	
 	public boolean isCorrectAnswer(int i) {
-		//...
+		return (i == this.correctIndex);
 	}
 }
