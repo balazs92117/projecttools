@@ -14,6 +14,10 @@ public class QuizGameLogic {
 	
 	
 	public QuizGameLogic(Frame gui) {
+		this.socket = new Socket("localhost", 11223);
+        this.pw = new PrintWriter(s.getOutputStream(), true);
+        this.sc = new Scanner(s.getInputStream());
+		
 		this.gui = gui;
 	}
 	
