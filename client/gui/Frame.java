@@ -31,9 +31,9 @@ public class Frame extends JFrame{
     private ActionListener startAction;
     private ActionListener closeAction;
     
-    private JLabel question=new JLabel();
+    private JLabel question=new JLabel("Kérdés?");
     
-    private final JLabel status = new JLabel("QUIZ");
+    private final JLabel status = new JLabel();
     
     private ArrayList<Button> buttons = new ArrayList<>();
     private ArrayList<String> anwsers = new ArrayList<>();
@@ -52,7 +52,7 @@ public class Frame extends JFrame{
         }
         correct=0;
         wrong=0;
-        isGameEnd(false);
+        gameEnd(false);
     }
     //Menü létrehozása, beállítása
     private void setMenu(){
@@ -79,12 +79,56 @@ public class Frame extends JFrame{
         buttons.add(b);
         buttons.add(c);
         buttons.add(d);
+        for(Button qb : buttons){
+            qb.setFocusable(false);
+        }
+       // clearButtonsColor();
+        
+        buttons.get(0).addActionListener(listenerA);
+        buttons.get(1).addActionListener(listenerB);
+        buttons.get(2).addActionListener(listenerC);
+        buttons.get(3).addActionListener(listenerD);
+        
+        this.setLayout(new BorderLayout());
+        
+        JPanel northPanel = new JPanel();
+        JPanel southPanel = new JPanel();
+        JPanel quizPanel  = new JPanel();
+        JPanel scorePanel = new JPanel();
+        
+        quizPanel.setLayout(new GridLayout(2, 1));
+        
+        northPanel.setLayout(new FlowLayout());
+        question.setPreferredSize(new Dimension(250, 180));
+        question.setVerticalAlignment(JLabel.CENTER);
+        question.setHorizontalAlignment(JLabel.CENTER);
+        question.setForeground(Color.WHITE);
+        northPanel.add(question);
+        
+        southPanel.setLayout(new GridLayout(2, 2));
+        southPanel.add(buttons.get(0));
+        southPanel.add(buttons.get(1));
+        southPanel.add(buttons.get(2));
+        southPanel.add(buttons.get(3));
+        
+        scorePanel.setLayout(new GridLayout(1,1));
+        scorePanel.setSize(100, 100);
+        scorePanel.add(status);
+        status.setHorizontalAlignment(JLabel.CENTER);
+        
+        quizPanel.add(northPanel);
+        quizPanel.add(southPanel);
+        
+        this.add(quizPanel, BorderLayout.NORTH);
+        this.add(scorePanel, BorderLayout.SOUTH);
+        
+        northPanel.setBackground(Color.DARK_GRAY);
         
     }
     //Ablak tulajdonságainak beállítása
     private void initFrame() {
         setTitle("QUIZ");
-        setSize(new Dimension(850, 650));
+        setSize(new Dimension(650, 650));
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
         setResizable(false);
@@ -115,10 +159,10 @@ public class Frame extends JFrame{
         add(panel, BorderLayout.SOUTH);
     }
     
-   //Vége van-e a játéknak
-    public boolean isGameEnd(boolean i){
-        return false;
+    public int getCorrect(){
+        return this.correct;
     }
+    
     //Események lekezelése
     private void hookActionListeners() {
         //Játék indítás esemény
@@ -201,11 +245,29 @@ public class Frame extends JFrame{
     //Új játék indítása
     private void newGame() throws IOException{
         
-        for(Button b : buttons)
+        for(Button qb : buttons)
         {
-            b.setEnabled(true);
+            qb.setEnabled(true);
         }
+        //clearButtonsColor();
         correct = 0;
         wrong = 0;
+        // init
+        //init();
     }
+    
+    //A játék vége, kiírja, mennyi helyes választ adott a játékos
+    public void gameEnd(boolean i){
+        for(Button qb : buttons){
+            qb.setEnabled(false);
+            qb.setText("");
+        }
+        question.setText("");
+        status.setText("");
+        revalidate();
+        repaint();
+
+        if(i) JOptionPane.showMessageDialog(null, "Gratulálok. Elért eredményed: " + getCorrect());
+    }
+    
 }
