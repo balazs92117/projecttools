@@ -22,6 +22,7 @@ public class QuizGameLogic {
 	}
 	
 	private void getQuestionFromServer() {
+		System.out.println("Client: Requesting question and answers from server");
 		pw.println("REQUEST");
 		this.question = sc.next();
 		for(int i=0;i<4;i++) {
@@ -35,7 +36,8 @@ public class QuizGameLogic {
 	}
 	
 	private void gameQuestionSetup() {
-		//...
+		getQuestionFromServer();
+		setQuestionInGui();
 	}
 	
 	public boolean isCorrectAnswer(int i) {
