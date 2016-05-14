@@ -1,3 +1,5 @@
+package client.logic;
+
 import java.net.*;
 import java.io.*;
 
