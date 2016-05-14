@@ -2,7 +2,7 @@ package client;
 
 public class QuizGameClient {
 		
-	public QuizGameClient() {
-	
-	}
+    public static void main(String[] args) {
+        new Frame().setVisible(true);
+    }
 }
