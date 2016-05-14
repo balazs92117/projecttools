@@ -31,7 +31,7 @@ public class QuizGameLogic {
 	}
 	
 	private void setQuestionInGui() {
-		//...	
+		gui.setNewQuestion(question, answers);
 	}
 	
 	private void gameQuestionSetup() {
