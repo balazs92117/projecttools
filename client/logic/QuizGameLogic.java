@@ -67,4 +67,11 @@ public class QuizGameLogic {
 	public boolean isCorrectAnswer(int i) {
 		return (i == this.correctIndex);
 	}
+	
+	/**
+	 * Bontja a kapcsolatot a szerverrel.
+	 */
+	public void exitServer() {
+        socket.close();
+    }
 }
