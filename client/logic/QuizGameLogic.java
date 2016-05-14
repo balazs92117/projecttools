@@ -21,9 +21,13 @@ public class QuizGameLogic {
 		this.gui = gui;
 	}
 	
-	private String getQuestionFromServer() {
-		//...
-		return question;
+	private void getQuestionFromServer() {
+		pw.println("REQUEST");
+		this.question = sc.next();
+		for(int i=0;i<4;i++) {
+			this.answers[i] = sc.next();
+		}
+		this.correctIndex = sc.nextInt();
 	}
 	
 	private void setQuestionInGui() {
