@@ -54,7 +54,7 @@ public class QuizGameLogic {
 	 * Új kérdést indít.
 	 * Meghívja a getQuestionFromServer-t és a setQuestionInGui-t 
 	 */
-	private void gameQuestionSetup() {
+	public void gameQuestionSetup() {
 		getQuestionFromServer();
 		setQuestionInGui();
 	}
