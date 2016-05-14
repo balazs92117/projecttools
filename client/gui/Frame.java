@@ -32,7 +32,8 @@ public class Frame extends JFrame {
 
     private JLabel question = new JLabel("Kérdés?");
 
-    private final JLabel status = new JLabel();
+    private final JLabel status = new JLabel("<html><font size=\"2\" color=\"green\">Jó válasz: " + correct + "      "
+            + "</font><font size=\"2\" color=\"red\">Rossz válasz: " + wrong + "</font></html>" );
 
     private ArrayList<Button> buttons = new ArrayList<>();
     private String[] anwsers;
@@ -42,7 +43,6 @@ public class Frame extends JFrame {
         hookActionListeners();
         setMenu();
         setPageStart();
-        setPageEnd();
         try {
             logic = new QuizGameLogic(this);
         } catch (Exception ex) {
@@ -148,17 +148,6 @@ public class Frame extends JFrame {
         add(panel, BorderLayout.PAGE_START);
     }
 
-    private void setPageEnd() {
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        status.setHorizontalAlignment(SwingConstants.LEFT);
-        panel.setBorder(new BevelBorder(BevelBorder.LOWERED));
-        panel.setPreferredSize(new Dimension(getWidth(), 16));
-        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-
-        panel.add(status);
-        add(panel, BorderLayout.SOUTH);
-    }
-
     //Események lekezelése
     private void hookActionListeners() {
         //Játék indítás esemény
@@ -241,8 +230,8 @@ public class Frame extends JFrame {
         } else {
             ++wrong;
         }
-        status.setText("<html><font size=\"2\" color=\"green\">Jó: " + correct + "                      "
-                + "      </font><font size=\"2\" color=\"red\">Rossz: " + wrong + "</font></html>");
+        status.setText("<html><font size=\"2\" color=\"green\">Jó válasz: " + correct + "                      "
+                + "      </font><font size=\"2\" color=\"red\">Rossz válasz: " + wrong + "</font></html>");
 
         if (b) {
             JOptionPane.showMessageDialog(null, "Helyes válasz! ");
@@ -314,8 +303,8 @@ public class Frame extends JFrame {
     
     //kérdés inicializálása 4 válasszal
     private void init() throws IOException {
-        status.setText("<html><font size=\"2\" color=\"green\">Jó: " + correct + "                      "
-                + "</font><font size=\"2\" color=\"red\">Rossz: " + wrong + "</font></html>");
+        status.setText("<html><font size=\"2\" color=\"green\">Jó válasz: " + correct + "                      "
+                + "</font><font size=\"2\" color=\"red\">Rossz válasz: " + wrong + "</font></html>");
         buttonColor();
         setButtons();
         revalidate();
