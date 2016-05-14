@@ -71,7 +71,7 @@ public class QuizGameLogic {
 	/**
 	 * Bontja a kapcsolatot a szerverrel.
 	 */
-	public void exitServer() {
+	public void exitServer() throws IOException {
         socket.close();
     }
 }

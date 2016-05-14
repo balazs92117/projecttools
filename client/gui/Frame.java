@@ -166,7 +166,11 @@ public class Frame extends JFrame {
         closeAction = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                logic.exitServer();
+                try {
+                    logic.exitServer();
+                } catch (IOException ex) {
+                    Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 System.exit(0);
             }
         };
@@ -177,7 +181,7 @@ public class Frame extends JFrame {
                 System.out.println("Click A!");
                 selected = 0;
                 try {
-                    result(logic.iscorrectAnswer(0));
+                    result(logic.isCorrectAnswer(0));
                 } catch (IOException ex) {
                     Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -190,7 +194,7 @@ public class Frame extends JFrame {
                 System.out.println("Click B!");
                 selected = 1;
                 try {
-                    result(logic.iscorrectAnswer(0));
+                    result(logic.isCorrectAnswer(0));
                 } catch (IOException ex) {
                     Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -203,7 +207,7 @@ public class Frame extends JFrame {
                 System.out.println("Click C!");
                 selected = 2;
                 try {
-                    result(logic.iscorrectAnswer(0));
+                    result(logic.isCorrectAnswer(0));
                 } catch (IOException ex) {
                     Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -216,7 +220,7 @@ public class Frame extends JFrame {
                 System.out.println("Click D!");
                 selected = 3;
                 try {
-                    result(logic.iscorrectAnswer(0));
+                    result(logic.isCorrectAnswer(0));
                 } catch (IOException ex) {
                     Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -240,7 +244,7 @@ public class Frame extends JFrame {
             boolean b2 = false;
             int i = 0;
             while (!b2 && i < 4) {
-                if (logic.iscorrectAnswer(i)) {
+                if (logic.isCorrectAnswer(i)) {
                     correctA = anwsers[i];
                 }
                 ++i;
@@ -310,7 +314,7 @@ public class Frame extends JFrame {
         revalidate();
         repaint();
         System.out.println("Kérdés: ");
-        logic.newQuestionRequest();
+        logic.gameQuestionSetup();
     }
     
     //gombok színe
