@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.logging.*;
 import javax.swing.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
-import javax.swing.border.BevelBorder;
+import client.logic.QuizGameLogic;
 
 //Az ablak megvalósítása, származtatás JFrame osztályból
 public class Frame extends JFrame {
@@ -78,8 +78,8 @@ public class Frame extends JFrame {
         buttons.add(b);
         buttons.add(c);
         buttons.add(d);
-        for (Button qb : buttons) {
-            qb.setFocusable(false);
+        for (Button b : buttons) {
+            b.setFocusable(false);
         }
         buttonColor();
 
@@ -134,7 +134,7 @@ public class Frame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
     
-    
+    //A kezdőoldal megjelenítése
     private void setPageStart() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JLabel frameHeader = new JLabel("Quiz");
@@ -167,7 +167,11 @@ public class Frame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    for (java.awt.Frame frame : java.awt.Frame.getFrames()) {
+                        frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+                    }
                     logic.exitServer();
+                    
                 } catch (IOException ex) {
                     Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -194,7 +198,7 @@ public class Frame extends JFrame {
                 System.out.println("Click B!");
                 selected = 1;
                 try {
-                    result(logic.isCorrectAnswer(0));
+                    result(logic.isCorrectAnswer(1));
                 } catch (IOException ex) {
                     Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -207,7 +211,7 @@ public class Frame extends JFrame {
                 System.out.println("Click C!");
                 selected = 2;
                 try {
-                    result(logic.isCorrectAnswer(0));
+                    result(logic.isCorrectAnswer(2));
                 } catch (IOException ex) {
                     Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -220,7 +224,7 @@ public class Frame extends JFrame {
                 System.out.println("Click D!");
                 selected = 3;
                 try {
-                    result(logic.isCorrectAnswer(0));
+                    result(logic.isCorrectAnswer(3));
                 } catch (IOException ex) {
                     Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -230,9 +234,9 @@ public class Frame extends JFrame {
     //Eredmény 
     private void result(boolean b) throws IOException {
         if (b) {
-            ++correct;
+            correct+=1;
         } else {
-            ++wrong;
+            wrong+=1;
         }
         status.setText("<html><font size=\"2\" color=\"green\">Jó válasz: " + correct + "                      "
                 + "      </font><font size=\"2\" color=\"red\">Rossz válasz: " + wrong + "</font></html>");
@@ -267,6 +271,7 @@ public class Frame extends JFrame {
             b.setEnabled(true);
         }
         buttonColor();
+        setButtons();
         correct = 0;
         wrong = 0;
         init();
@@ -284,19 +289,14 @@ public class Frame extends JFrame {
         repaint();
 
         if (i) {
-            JOptionPane.showMessageDialog(null, "Gratulálok. Elért eredményed: " + getCorrect());
+            JOptionPane.showMessageDialog(null, "Gratulálok. Elért eredményed: " + correct);
         }
-    }
-
-    //Jó válaszok lekérdezése
-    public int getCorrect() {
-        return this.correct;
     }
 
     //Kérdések, válaszok beállítása
     public void setNewQuestion(String questions, String[] answers) {
         this.anwsers = answers;
-        question.setText("<html><div align=\"center\"><font size=\"5\">" + questions + "</font></div></html>");
+        question.setText("<html><div align=\"center\"><font size=\"5\" color=\"white\">" + questions + "</font></div></html>");
         buttons.get(0).setText("<html><div align=\"center\">" + answers[0] + "</div></html>");
         buttons.get(1).setText("<html><div align=\"center\">" + answers[1] + "</div></html>");
         buttons.get(2).setText("<html><div align=\"center\">" + answers[2] + "</div></html>");
@@ -310,7 +310,6 @@ public class Frame extends JFrame {
         status.setText("<html><font size=\"2\" color=\"green\">Jó válasz: " + correct + "                      "
                 + "</font><font size=\"2\" color=\"red\">Rossz válasz: " + wrong + "</font></html>");
         buttonColor();
-        setButtons();
         revalidate();
         repaint();
         System.out.println("Kérdés: ");
