@@ -1,4 +1,5 @@
 import java.net.*;
+import java.io.*;
 
 public class QuizGameLogic {
 
@@ -6,7 +7,10 @@ public class QuizGameLogic {
 	private String[] answers;
 	private int correctIndex;
 	private Frame gui;
+	
 	private Socket socket;
+	private PrintWriter pw;
+	private Scanner sc;
 	
 	public QuizGameLogic(Frame gui) {
 		this.gui = gui;
