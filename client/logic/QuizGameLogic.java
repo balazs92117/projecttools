@@ -2,6 +2,7 @@ package client.logic;
 
 import java.net.*;
 import java.io.*;
+import java.util.*;
 
 public class QuizGameLogic {
 
@@ -15,10 +16,10 @@ public class QuizGameLogic {
 	private Scanner sc;
 	
 	
-	public QuizGameLogic(Frame gui) {
+	public QuizGameLogic(Frame gui) throws IOException {
 		this.socket = new Socket("localhost", 11223);
-        this.pw = new PrintWriter(s.getOutputStream(), true);
-        this.sc = new Scanner(s.getInputStream());
+        this.pw = new PrintWriter(socket.getOutputStream(), true);
+        this.sc = new Scanner(socket.getInputStream());
 		
 		this.gui = gui;
 	}
