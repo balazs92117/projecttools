@@ -48,7 +48,7 @@ public class QuizGameServer {
 	try {
 	    while ((inputLine = in.readLine()) != null) {
 		if(inputLine.equals("REQUEST")) {
-		    out.println("Kerdés 1|Valasz 1|Valasz 2|Valasz 3|Valasz 4|2");
+		    out.println("Kerdés 1|Valasz 1|Valasz 2|Valasz 3|Valasz 4|3|");
 		}
 	    }
 	} catch (IOException ex) {
