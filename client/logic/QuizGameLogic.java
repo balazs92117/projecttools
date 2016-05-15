@@ -1,5 +1,6 @@
 package client.logic;
 
+import client.gui.Frame;
 import java.net.*;
 import java.io.*;
 import java.util.*;
@@ -7,7 +8,7 @@ import java.util.*;
 public class QuizGameLogic {
 
 	private String question;
-	private String[] answers;
+	private String[] answers = new String[4];
 	private int correctIndex;
 	private Frame gui;
 	
@@ -37,6 +38,7 @@ public class QuizGameLogic {
 	private void getQuestionFromServer() {
 		System.out.println("Client: Requesting question and answers from server");
 		pw.println("REQUEST");
+		sc.useDelimiter("\\|");
 		this.question = sc.next();
 		for(int i=0;i<4;i++) {
 			this.answers[i] = sc.next();
