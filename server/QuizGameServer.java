@@ -11,8 +11,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -30,8 +28,8 @@ public class QuizGameServer {
     //  Database credentials
     static final String USER = "projecttools";
     static final String PASS = "projecttools";
-
-	/**
+    
+    /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -41,8 +39,9 @@ public class QuizGameServer {
     }
     /**
      * Elindítja a szervert
-     * @param portNumber Serverportamin hallgat
+     * @param portNumber Serverport amire bindol
      * @throws Exception IOException
+     * @return boolean Sikerult-e letrehozni a szervert
      */
     private static boolean startSocket(int portNumber) {
 	getRandomQuestion();
@@ -59,6 +58,7 @@ public class QuizGameServer {
     }
     /**
      * Vár a REQUESTkérésekre, és átküldi a kliensnek a választ kérésesetén.
+     * @throws Exception IOException
      */
     private static void answer() {
 	String inputLine;
@@ -73,13 +73,17 @@ public class QuizGameServer {
 	    System.out.println("Server: Cant read through socket");
 	}
     }
+    /**
+     * Kapcsolódik az adatbázishoz, és egy random kérdés+választ kiszedbelőle
+     * @return String random kérdés azadatbázisból
+     */
     private static String getRandomQuestion() {
 	String finalQuestion = null;
 	Connection conn = null;
 	Statement stmt = null;
 	try{
 	    //STEP 2: Register JDBC driver
-	    Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+	    Class.forName(JDBC_DRIVER);
 
 	    //STEP 3: Open a connection
 	    conn = DriverManager.getConnection(DB_URL, USER, PASS);
